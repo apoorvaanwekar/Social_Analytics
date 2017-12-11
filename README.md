@@ -84,7 +84,7 @@ plt.show()
 ```
 
 
-![png](plot_1.png)
+![png](plot1.png)
 
 
 
