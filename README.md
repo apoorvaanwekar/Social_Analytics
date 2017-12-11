@@ -6,14 +6,21 @@ import tweepy
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import json
 
 # Initialize Sentiment Analyzer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 analyzer = SentimentIntensityAnalyzer()
-consumer_key = "sY8fauoEtegrERuNmKGtMAz54"
-consumer_secret = "h1g3mTdGGPJNFFPoEbcvGJvkwUbItHUwv8J0Md06Xk216N0SVD"
-access_token = "3168989036-8Uabrs2l1Edzv1vMynmt9AVsNId74qjHnjJ2nDA"
-access_token_secret = "efgg82mNboqI57xeg2eXo6W60tzubYIv5GN6u2WNt75js"
+
+# Twitter API Keys, load from json file
+file = open("api_keys.json", "r") 
+json_data = file.read()
+data = json.loads(json_data)
+consumer_key = data["consumer_key"]
+consumer_secret = data["consumer_secret"]
+access_token = data["access_token"]
+access_token_secret = data["access_token_secret"]
+
 # Setup Tweepy API Authentication
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -32,15 +39,14 @@ sentiments = []
 ```python
 for target in target_users:
     tweet_cnt = 1
-# Loop through 6 pages of tweets (total 120 tweets)
+    # Loop through 6 pages of tweets (total 120 tweets)
     for page in range(6):
-# Get all tweets from home feed
+        # Get all tweets from home feed
         public_tweets = api.user_timeline(target)
-# Loop through all tweets 
+        # Loop through all tweets 
         for tweet in public_tweets:
             text = tweet['text']
- # Run Vader Analysis on each tweet
-
+             # Run Vader Analysis on each tweet
             scores = analyzer.polarity_scores(text)
             sentiments.append({"Tweet_Number": tweet_cnt,
                 "Channel": target,
@@ -78,7 +84,7 @@ plt.show()
 ```
 
 
-![png](output_3_0.png)
+![png](plot_1.png)
 
 
 
@@ -122,22 +128,22 @@ grouped_index.head()
     <tr>
       <th>1</th>
       <td>@CBSNews</td>
-      <td>-0.219920</td>
+      <td>-0.211645</td>
     </tr>
     <tr>
       <th>2</th>
       <td>@CNN</td>
-      <td>0.090985</td>
+      <td>0.105310</td>
     </tr>
     <tr>
       <th>3</th>
       <td>@FoxNews</td>
-      <td>0.200225</td>
+      <td>0.149920</td>
     </tr>
     <tr>
       <th>4</th>
       <td>@nytimes</td>
-      <td>-0.083825</td>
+      <td>-0.020035</td>
     </tr>
   </tbody>
 </table>
@@ -160,5 +166,5 @@ plt.show()
 ```
 
 
-![png](output_5_0.png)
+![png](plot2.png)
 
