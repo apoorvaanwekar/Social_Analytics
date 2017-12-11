@@ -1,4 +1,11 @@
 
+# Analysis
+# Trend1 As per the sentiment analysis plots we can say @CBS News is more negetive tweeter as compared to other news channels.
+
+# Trend2  @Fox News has more positive approch of tweeitng news via Tweeter.
+
+
+# Trend3 By looking at the plots we can say @CNN news has a neutral way of communication of news in Tweeter.
 
 ```python
 # Dependencies
